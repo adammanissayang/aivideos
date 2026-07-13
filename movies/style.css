@@ -1,0 +1,106 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#111;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.card{
+    width:660px;
+    height:560px;
+    position:relative;
+    overflow:hidden;
+    border-radius:12px;
+    background:url("movie3.jpeg") center top/cover no-repeat;
+    box-shadow:0 20px 50px rgba(0,0,0,.5);
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        to top,
+        #0b0b0b 20%,
+        rgba(0,0,0,.4) 55%,
+        rgba(0,0,0,0)
+    );
+}
+
+.close{
+    position:absolute;
+    top:15px;
+    right:20px;
+    color:#fff;
+    font-size:34px;
+    cursor:pointer;
+    z-index:10;
+}
+
+.content{
+    position:absolute;
+    left:40px;
+    right:40px;
+    bottom:35px;
+    z-index:2;
+    color:#fff;
+}
+
+.title{
+    font-size:58px;
+    font-weight:800;
+    font-style:italic;
+    line-height:.9;
+    margin-bottom:20px;
+}
+
+.title span{
+    font-size:34px;
+}
+
+.tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:25px;
+}
+
+.tag{
+    background:rgba(255,255,255,.18);
+    padding:6px 12px;
+    border-radius:4px;
+    font-size:14px;
+}
+
+.desc{
+    font-size:18px;
+    color:#eee;
+    line-height:1.6;
+    margin-bottom:30px;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:15px 25px;
+    background:#E50914;
+    color:#fff;
+    text-decoration:none;
+    border-radius:6px;
+    font-size:20px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:#ff2b37;
+}

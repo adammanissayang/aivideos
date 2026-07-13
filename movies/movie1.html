@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HEMKFT8ZNR"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-HEMKFT8ZNR');
+    </script>
+
+
+
+
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -13,11 +30,18 @@
 
     <link rel="stylesheet" href="style.css">
 </head>
+
+
+
+
 <body>
 
 <div class="card">
+     <a href="../index.html">
+    <img src="assets/logo.jpg" alt="Logo" class="logo">
+    </a>
 
-    <div class="close">&times;</div>
+    <a href="../index.html" class="close">&times;</a>
 
     <div class="content">
 
@@ -38,14 +62,146 @@
             When respect collapses in schools, unconventional inspectors arrive to set things right—with sharp, no-nonsense lessons you won't find in textbooks.
         </p>
 
-        <a href="#" class="btn">
-            Get Started
-            <span>&rsaquo;</span>
-        </a>
+
+        <div class="action-area">
+
+            <a href="#" class="btn" onclick="openYoutubeModal(); return false;">
+                Tonton now!
+                <span>&rsaquo;</span>
+
+                
+
+
+
+
+            </a>
+
+
+        <div class="rating">
+
+                <div class="rating-header">
+                    <span>Sumbangan penonton</span>
+                    <span id="score">0%</span>
+                </div>
+
+                <div class="rating-bar">
+                    <div class="rating-fill" id="ratingFill"></div>
+                </div>
+            </div>
+
+            
+
+        </div>
+
+
+        
+
+
 
     </div>
 
 </div>
+
+            <script>
+
+                const target = 92;
+
+                const score = document.getElementById("score");
+                const ratingFill = document.getElementById("ratingFill");
+
+                let current = 0;
+
+                const timer = setInterval(function(){
+
+                    current++;
+
+                    score.textContent = current + "Riya";
+                    ratingFill.style.width = current + "%";
+
+                    if(current >= target){
+                        clearInterval(timer);
+                    }
+
+                },20);
+
+            </script>
+
+
+
+
+
+
+            
+
+
+        <div id="youtubeModal" class="youtube-modal">
+
+            <div class="youtube-container">
+
+                <button class="close-btn" onclick="closeYoutubeModal()">
+                    &times;
+                </button>
+
+
+                <iframe 
+                    id="youtubeFrame"
+                    src=""
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen>
+                </iframe>
+
+
+
+
+
+            </div>
+
+        </div>
+
+
+        <script>
+               function openYoutubeModal() {
+
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'button_click', {
+                            button_name: 'Tonton now'
+                        });
+                    }
+
+                    let videoURL = "https://www.youtube.com/embed/gcPUUz9iGB8?si=3waBiBb66fBVoPpy&autoplay=1";
+
+                    document.getElementById("youtubeFrame").src = videoURL;
+                    document.getElementById("youtubeModal").style.display = "flex";
+                }
+
+
+                function closeYoutubeModal() {
+
+                    document.getElementById("youtubeModal").style.display = "none";
+
+                    // Stop video bila tutup
+                    document.getElementById("youtubeFrame").src = "";
+                }
+
+
+                // Tutup bila klik kawasan luar video
+                window.onclick = function(event) {
+                    let modal = document.getElementById("youtubeModal");
+
+                    if (event.target == modal) {
+                        closeYoutubeModal();
+                    }
+                }
+            </script>
+
+
+
+            
+
+
 
 </body>
 </html>

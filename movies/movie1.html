@@ -77,7 +77,7 @@
             </a>
 
 
-        <div class="rating">
+        <div class="rating" onclick="openQRModal()">
 
                 <div class="rating-header">
                     <span>Sumbangan penonton</span>
@@ -199,7 +199,46 @@
 
 
 
-            
+        <div id="qrModal" class="youtube-modal">
+
+            <div class="youtube-container qr-box">
+
+                <button class="close-btn" onclick="closeQRModal()">
+                    &times;
+                </button>
+
+                <h2>Jom Sokong</h2>
+
+                <img src="../assets/qr.jpg" alt="QR Code">
+
+                <p>Untuk Idea Keluar Dari Otak!</p>
+
+            </div>
+
+        </div>
+
+        <script>
+
+            function openQRModal(){
+
+            if(typeof gtag === "function"){
+                gtag("event","qr_click");
+            }
+
+            document.getElementById("qrModal").style.display="flex";
+
+            }
+
+            function closeQRModal(){
+
+            document.getElementById("qrModal").style.display="none";
+
+            }
+
+        
+        </script>
+        
+        
 
 
 

@@ -152,6 +152,17 @@ body{
     backdrop-filter:blur(12px);
     border:1px solid rgba(255,255,255,.12);
     border-radius:12px;
+
+
+    cursor:pointer;
+    transition:.3s;
+}
+
+.rating:hover{
+    transform:scale(1.03);
+    border:1px solid #ff4444;
+}
+
 }
 
 .rating-header{
@@ -288,6 +299,30 @@ body{
         font-size:42px;
         line-height:1;
     }
+}
+
+
+.qr-box{
+    background:#181818;
+    padding:30px;
+    border-radius:12px;
+    text-align:center;
+    width:340px;
+    height:auto;
+}
+
+.qr-box img{
+    width:220px;
+    margin:20px auto;
+    display:block;
+}
+
+.qr-box h2{
+    color:#fff;
+}
+
+.qr-box p{
+    color:#ccc;
 }
 
 

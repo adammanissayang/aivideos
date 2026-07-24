@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<title>Game Nasi Lemak vs Durian</title>
+<style>
+    body {
+        margin: 0;
+        overflow: hidden;
+        background: linear-gradient(#87CEEB, #ffffff);
+        font-family: Arial;
+        text-align: center;
+    }
+    canvas {
+        background: #f0f8ff;
+        display: block;
+        margin: auto;
+    }
+</style>
+</head>
+<body>
+
+<h2>🍚 Kutip Nasi Lemak! Elak Durian! 🌳</h2>
+<p>Capai 100 dalam 30 saat untuk menang!</p>
+<canvas id="gameCanvas" width="400" height="600"></canvas>
+
+<script>
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+let basket = {
+    x: 180,
+    y: 550,
+    width: 60,
+    height: 30,
+    speed: 6
+};
+
+let nasiList = [];
+let durianList = [];
+
+let score = 0;
+let timeLeft = 30;
+let gameOver = false;
+
+// Control
+let left = false;
+let right = false;
+
+document.addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft") left = true;
+    if (e.key === "ArrowRight") right = true;
+});
+
+document.addEventListener("keyup", e => {
+    if (e.key === "ArrowLeft") left = false;
+    if (e.key === "ArrowRight") right = false;
+});
+
+// Spawn items
+function spawnItems() {
+    if (Math.random() < 0.05) {
+        nasiList.push({
+            x: Math.random() * 370,
+            y: 0,
+            size: 20
+        });
+    }
+
+    if (Math.random() < 0.02) {
+        durianList.push({
+            x: Math.random() * 370,
+            y: 0,
+            size: 25
+        });
+    }
+}
+
+// Draw basket
+function drawBasket() {
+    ctx.fillStyle = "brown";
+    ctx.fillRect(basket.x, basket.y, basket.width, basket.height);
+}
+
+// Draw nasi lemak
+function drawNasi(n) {
+    ctx.fillStyle = "green";
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.size, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+// Draw durian
+function drawDurian(d) {
+    ctx.fillStyle = "darkgreen";
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, d.size, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+// Collision
+function isCollide(a, b) {
+    return (
+        a.x < b.x + b.width &&
+        a.x + a.size > b.x &&
+        a.y < b.y + b.height &&
+        a.y + a.size > b.y
+    );
+}
+
+// Update game
+function update() {
+    if (gameOver) return;
+
+    if (left) basket.x -= basket.speed;
+    if (right) basket.x += basket.speed;
+
+    if (basket.x < 0) basket.x = 0;
+    if (basket.x + basket.width > canvas.width)
+        basket.x = canvas.width - basket.width;
+
+    spawnItems();
+
+    nasiList.forEach((n, i) => {
+        n.y += 4;
+
+        if (isCollide(n, basket)) {
+            score++;
+            nasiList.splice(i, 1);
+        }
+
+        if (n.y > canvas.height) nasiList.splice(i, 1);
+    });
+
+    durianList.forEach((d, i) => {
+        d.y += 5;
+
+        if (isCollide(d, basket)) {
+            score = 0; // reset semua nasi lemak
+            durianList.splice(i, 1);
+        }
+
+        if (d.y > canvas.height) durianList.splice(i, 1);
+    });
+}
+
+// Draw everything
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    drawBasket();
+
+    nasiList.forEach(drawNasi);
+    durianList.forEach(drawDurian);
+
+    ctx.fillStyle = "black";
+    ctx.fillText("Score: " + score, 10, 20);
+    ctx.fillText("Time: " + timeLeft, 320, 20);
+
+    if (gameOver) {
+        ctx.font = "30px Arial";
+        ctx.fillText(
+            score >= 100 ? "MENANG! 🎉" : "GAME OVER 😭",
+            100,
+            300
+        );
+    }
+}
+
+// Game loop
+function gameLoop() {
+    update();
+    draw();
+    requestAnimationFrame(gameLoop);
+}
+
+// Timer
+let timer = setInterval(() => {
+    timeLeft--;
+    if (timeLeft <= 0) {
+        gameOver = true;
+        clearInterval(timer);
+    }
+}, 1000);
+
+gameLoop();
+</script>
+
+</body>
+</html>
